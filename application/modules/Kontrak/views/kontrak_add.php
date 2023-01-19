@@ -25,7 +25,7 @@
 					<div class="card">
 						<div class="card-header">
 							<h5 class="card-title mb-0">Form Kontrak</h5>
-							<a href="<?= base_url('employee'); ?>" class="btn btn-light mt-2 "><i class="las la-angle-left"></i> Back</a>
+							<a href="<?= base_url('kontrak'); ?>" class="btn btn-light mt-2 "><i class="las la-angle-left"></i> Back</a>
 						</div>
 						<div class="card-body row">
 							<div class="row mb-3">
@@ -35,8 +35,8 @@
 								<div class="col-lg-9">
 									<select class="form-select <?= form_error('nama') ? 'is-invalid' : ''; ?>" name="nama" id="nama">
 										<option value="">--Pilih--</option>
-										<?php foreach ($pegawai as $key => $dt) : ?>
-											<option value="<?= $dt->id_pegawai; ?>" <?= set_value('nama') == $dt->id_pegawai ? 'selected' : ''; ?>><?= $dt->nama; ?></option>
+										<?php foreach ($pegawai as  $dt) : ?>
+											<option value="<?= $dt['id_pegawai']; ?>" <?= set_value('nama') == $dt['id_pegawai'] ? 'selected' : ''; ?>><?= $dt['nama']; ?></option>
 										<?php endforeach ?>
 									</select>
 								</div>
@@ -49,7 +49,7 @@
 									<select class="form-select <?= form_error('jabatan') ? 'is-invalid' : ''; ?>" name="jabatan" id="jabatan">
 										<option value="">--Pilih--</option>
 										<?php foreach ($jabatan as $key => $dt) : ?>
-											<option value="<?= $dt->id_jabatan; ?>" <?= set_value('jabatan') == $dt->id_jabatan ? 'selected' : ''; ?>><?= $dt->nama_jabatan; ?></option>
+											<option value="<?= $dt['id_jabatan']; ?>" <?= set_value('jabatan') == $dt['id_jabatan'] ? 'selected' : ''; ?>><?= $dt['nama_jabatan']; ?></option>
 										<?php endforeach ?>
 									</select>
 								</div>

@@ -25,7 +25,7 @@
 					<div class="card">
 						<div class="card-header">
 							<h5 class="card-title mb-0">Form Kontrak</h5>
-							<a href="<?= base_url('employee'); ?>" class="btn btn-light mt-2 "><i class="las la-angle-left"></i> Back</a>
+							<a href="<?= base_url('kontrak'); ?>" class="btn btn-light mt-2 "><i class="las la-angle-left"></i> Back</a>
 						</div>
 						<div class="card-body row">
 							<input type="hidden" name="id_kontrak" id="id_kontrak" value="<?= $kontrak->id_kontrak; ?>">

@@ -10,8 +10,10 @@ class Kontrak extends CI_Controller
 		$this->load->model('Kontrak_m');
 	}
 
+
 	public function index()
 	{
+
 		$data = [
 			'title' => 'Kontrak',
 		];
@@ -45,9 +47,10 @@ class Kontrak extends CI_Controller
                     <li><a id="set_detail" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#detailKontrakModal" data-nama="' . $dt->nama . '" data-nik="' . $dt->nik . '" data-tempat_lahir="' . $dt->tempat_lahir . '" data-tgl_lahir="' . $dt->tgl_lahir . '" data-jenis_kelamin="' . $dt->jenis_kelamin . '" data-alamat="' . $dt->alamat . '" data-telp="' . $dt->telp . '" data-jabatan="' . $dt->nama_jabatan . '" data-tgl_kontrak="' . $dt->tgl_kontrak . '" data-tgl_mulai="' . $dt->tgl_mulai . '" data-tgl_akhir="' . $dt->tgl_akhir . '" data-status="' . $dt->status . '"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
                     <li><a href="' . base_url('kontrak/edit/') . $dt->id_kontrak . '" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
                     <li>
-                        <a class="dropdown-item remove-item-btn">
-                            <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                        </a>
+					<form action="' . base_url('kontrak/delete') . '" method="post">
+						<input type="hidden" name="id_kontrak" value="' . $dt->id_kontrak . '">
+                        <button  type="submit" class="btn btn-xs "><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</button>
+					<form>
                     </li>
                 </ul>
             </div>
@@ -80,10 +83,16 @@ class Kontrak extends CI_Controller
 
 	public function add()
 	{
+		$pegawai = $this->api_request->pegawai();
+		$jabatan = $this->api_request->jabatan();
+		// var_dump($pegawai);
+		// die;
 		$data = [
 			'title' => 'Buat Kontrak',
-			'pegawai' => $this->db->get('tb_pegawai')->result(),
-			'jabatan' => $this->db->get('tb_jabatan')->result(),
+			'pegawai' => $pegawai,
+			'jabatan' => $jabatan,
+			// 'pegawai' => $this->db->get('tb_pegawai')->result(),
+			// 'jabatan' => $this->db->get('tb_jabatan')->result(),
 		];
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
@@ -103,10 +112,12 @@ class Kontrak extends CI_Controller
 	}
 	public function edit($id_kontrak)
 	{
+		$pegawai = $this->api_request->pegawai();
+		$jabatan = $this->api_request->jabatan();
 		$data = [
 			'title' => 'Edit Kontrak',
-			'pegawai' => $this->db->get('tb_pegawai')->result(),
-			'jabatan' => $this->db->get('tb_jabatan')->result(),
+			'pegawai' => $pegawai,
+			'jabatan' => $jabatan,
 			'kontrak' => $this->Kontrak_m->getKontrak($id_kontrak)->row(),
 		];
 		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
@@ -123,5 +134,14 @@ class Kontrak extends CI_Controller
                     </div>');
 			redirect('kontrak');
 		}
+	}
+
+	public function delete()
+	{
+		$this->Kontrak_m->deleteKontrak();
+		$this->session->set_flashdata('message', '<div style="opacity: .6" class="alert alert-success" role="alert">
+            Selamat! Data berhasil dihapus!
+            </div>');
+		redirect('kontrak');
 	}
 }

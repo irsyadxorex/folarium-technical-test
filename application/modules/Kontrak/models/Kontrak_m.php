@@ -95,4 +95,11 @@ class Kontrak_m extends CI_Model
 		$this->db->where('id_kontrak', $this->input->post('id_kontrak'));
 		$this->db->update('tb_kontrak', $data);
 	}
+
+	public function deleteKontrak()
+	{
+		$id_kontrak = $this->input->post('id_kontrak');
+		$this->db->where('id_kontrak', $id_kontrak);
+		$this->db->delete('tb_kontrak');
+	}
 }
